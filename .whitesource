@@ -2,44 +2,42 @@
   "scanSettings": {
     "configMode": "AUTO",
     "configExternalURL": "",
-    "projectToken": "",
     "baseBranches": []
   },
-  "scanSettingsSAST": {
-    "enableScan": true,
-    "scanPullRequests": true,
-    "incrementalScan": true,
-    "baseBranches": [],
-    "snippetSize": 10
-  },
   "checkRunSettings": {
-    "vulnerableCheckRunConclusionLevel": "failure",
     "displayMode": "diff",
-    "useMendCheckNames": true
-  },
-  "checkRunSettingsSAST": {
-    "checkRunConclusionLevel": "failure",
-    "severityThreshold": "high"
+    "vulnerableCheckRunConclusionLevel": "failure",
+    "strictMode": "failure",
+    "useMendCheckNames" : true
   },
   "issueSettings": {
     "minSeverityLevel": "LOW",
     "issueType": "DEPENDENCY"
   },
-  "issueSettingsSAST": {
-    "minSeverityLevel": "high",
-    "issueType": "repo"
-  },
   "remediateSettings": {
-    "workflowRules": {
-      "enabled": true
-    }
-  },
-   "imageSettings":{
-       "imageTracing":{
-           "enableImageTracingPR": false,
-           "addRepositoryCoordinate": false,
-           "addDockerfilePath": false,
-           "addMendIdentifier": false
-       }
-   }
+    "enableRenovate": true,
+    "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{controls}}}{{{footer}}}",
+    "extends": [
+      "schedule:monthly",
+      ":label(dependency)",
+      ":ignoreModulesAndTests",
+      ":prHourlyLimit2",
+      "group:monorepos",
+      "group:recommended",
+      "docker:disable"
+    ],
+    "velaci": {
+      "enabled": false
+    },
+    "packageRules": [
+      {
+        "matchDatasources": ["docker", "velaci"],
+        "registryUrls": ["https://hub.docker.target.com"]
+      }
+    ],
+    "branchPrefix": "sca/",
+    "dependencyDashboard": true,
+    "dependencyDashboardAutoclose": true,
+    "dependencyDashboardApproval": true
+  }
 }
