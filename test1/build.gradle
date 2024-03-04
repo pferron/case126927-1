@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://binrepo.target.com/artifactory/platform" }
+        maven { url "https://binrepo.target.com/artifactory/Greenfield" }
+        maven { url "https://binrepo.target.com/artifactory/maven-central" }
+        maven { url "https://binrepo.target.com/artifactory/gradle" }
+    }
+    dependencies {
+        classpath "com.target.greenfield.gradle:greenfield-gradle:${greenfieldGradlePlugin}"
+    }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "${springDependencyManagement}"
+}
+
+allprojects {
+    apply plugin: 'greenfield-java'
+    apply plugin: "io.spring.dependency-management"
+
+    group = 'com.target.greenfield.metrics'
+
+    dependencyManagement {
+        dependencies {
+            dependency group: 'org.slf4j', name: 'slf4j-api', version: "${slf4jApiVersion}"
+            dependency group: 'io.micrometer', name: 'micrometer-observation', version: "${micrometerVersion}"
+            dependency group: 'org.yaml', name: 'snakeyaml', version: "${snakeYamlVersion}"
+        }
+    }
+
+    dependencies {
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+        annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: "${slf4jApiVersion}"
+    }
+}
