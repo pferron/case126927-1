@@ -1,0 +1,18 @@
+apply plugin: 'greenfield-spring-exclude-gf-metrics'
+
+mainClassName = "com.target.greenfield.metrics.spring.Main"
+
+jar.enabled = true
+
+dependencyManagement {
+    dependencies {
+        dependency "org.xerial.snappy:snappy-java:${snappyVersion}"
+    }
+}
+
+dependencies {
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: "${modelMapper}"
+    implementation project(path: ':sdk:metrics-sdk-api')
+
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: "${springKafka}"
+}
