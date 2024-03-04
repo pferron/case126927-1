@@ -1,16 +1,3 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "https://binrepo.target.com/artifactory/platform" }
-        maven { url "https://binrepo.target.com/artifactory/Greenfield" }
-        maven { url "https://binrepo.target.com/artifactory/maven-central" }
-        maven { url "https://binrepo.target.com/artifactory/gradle" }
-    }
-    dependencies {
-        classpath "com.target.greenfield.gradle:greenfield-gradle:${greenfieldGradlePlugin}"
-    }
-}
-
 plugins {
     id "io.spring.dependency-management" version "${springDependencyManagement}"
 }
